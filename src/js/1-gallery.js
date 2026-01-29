@@ -86,3 +86,9 @@ const markup = images.map(({preview, original, description}) => {
 }).join('');
 
 list.innerHTML = markup;
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
