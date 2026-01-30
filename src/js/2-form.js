@@ -6,10 +6,27 @@ let formData = {
     message: "",
 };
 
+const savedData = localStorage.getItem(localStorageKey);
+
+if (savedData) {
+    formData = JSON.parse(savedData);
+
+    form.elements.email.value = formData.email;
+    form.elements.message.value = formData.message;
+}
 
 // Input
 
+form.addEventListener("input", event => {
+    const {name, value} = event.target;
 
+    if (!name) return;
+
+    formData[name] = value.trim();
+
+    localStorage.setItem(localStorageKey, JSON.stringify(formData));
+
+});
 
 // Submit
 
@@ -23,4 +40,11 @@ form.addEventListener("submit", event => {
     }
 
     console.log(formData);
-})
+
+    localStorage.removeItem(localStorageKey);
+
+    formData.email = "";
+    formData.message = "";
+
+    form.reset();
+});
